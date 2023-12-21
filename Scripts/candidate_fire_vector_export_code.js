@@ -924,7 +924,7 @@ var convertBandsls457 = function(lsImage) {
       palette: ['#fee8c8', '#fce1bd', '#fadab2', '#f8d3a8', 
               '#f7cc9e', '#f5c594', '#f4bd8a', '#f3b681',
               '#f2ae78', '#f0a66f', '#e55637', '#e34a33']},
-      'RFprediction', false);
+      'RFprediction', true);
     
     var one = hiRFthresh.clip(ROI);
     var two = hiDEVthresh.clip(ROI);
