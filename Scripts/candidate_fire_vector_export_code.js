@@ -13,7 +13,7 @@
  *   - hard coded the search query to June15-Aug31 (instead of MODIS snow free search)
  * 
  *  PLEASE CITE THE FOLLOWING PAPER:
- *  Hethcoat et al. 2023. Unrecorded tundra fires in Canada 1986–2022. Remote Sensing 
+ *  Hethcoat et al. 2023/2024. Unrecorded tundra fires in Canada 1986–2022. Remote Sensing 
  */
 
 
