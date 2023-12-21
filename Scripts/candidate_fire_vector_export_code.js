@@ -9,10 +9,11 @@
  *   - updating L7, L8 to C2 (cloud mask, scale factors, band names, etc) 
  *   - removed S2 b/c it affected RF probabilities (need to look into Landsat-S2 harmonized dataset)
  *   - removed pre- variables (added post-values but not incorporated to model)
- *   - added in training data farther back in time (1985-2020)
+ *   - added in training data further back in time (1985-2020)
  *   - hard coded the search query to June15-Aug31 (instead of MODIS snow free search)
  * 
- * 
+ *  PLEASE CITE THE FOLLOWING PAPER:
+ *  Hethcoat et al. 2023. Unrecorded tundra fires in Canada 1986–2022. Remote Sensing 
  */
 
 
