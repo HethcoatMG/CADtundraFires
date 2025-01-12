@@ -872,8 +872,6 @@ var convertBandsls457 = function(lsImage) {
   var grid = ROI.geometry().coveringGrid('EPSG:4326', 1000000);
 
   if(Export_select === true && ROI_select === false) {
-    
-    for( var i = 1; i < 24; i++) {
       
       Map.addLayer(predictedImage, {
         min: 0,
@@ -881,9 +879,9 @@ var convertBandsls457 = function(lsImage) {
         palette: ['#fee8c8', '#fce1bd', '#fadab2', '#f8d3a8', 
               '#f7cc9e', '#f5c594', '#f4bd8a', '#f3b681',
               '#f2ae78', '#f0a66f', '#e55637', '#e34a33']},
-        'RFprediction', false);
+        'RFprediction', false);  
     
-    
+    for( var i = 1; i < 24; i++) {   
       //there are 24 subGrid polys
       // loop through each polyGrid
       var subROI = ee.Feature(grid.toList(24).get(i)).geometry();
