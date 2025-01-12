@@ -28,24 +28,17 @@ scale = 0.0000275
 offset = -0.2
 
 def scaleL457(IMG):
-  bands = IMG.select('SR_B1', 'SR_B2', 'SR_B3', 'SR_B4', 'SR_B5', 'SR_B7')
-             .multiply(scale).add(offset).addBands(ee.Image.constant(0))
-             .rename(['blue', 'green', 'red', 'nir', 'swir1', 'swir2', 'S2']);
+  bands = IMG.select('SR_B1', 'SR_B2', 'SR_B3', 'SR_B4', 'SR_B5', 'SR_B7').multiply(scale).add(offset).addBands(ee.Image.constant(0)).rename(['blue', 'green', 'red', 'nir', 'swir1', 'swir2', 'S2'])
   return bands.copyProperties(IMG, ['system:time_start'])
 
 def scaleL89(IMG):
-  bands = IMG.select('SR_B2', 'SR_B3', 'SR_B4', 'SR_B5', 'SR_B6', 'SR_B7')
-             .multiply(scale).add(offset).addBands(ee.Image.constant(0))
-             .rename(['blue', 'green', 'red', 'nir', 'swir1', 'swir2', 'S2']);
+  bands = IMG.select('SR_B2', 'SR_B3', 'SR_B4', 'SR_B5', 'SR_B6', 'SR_B7').multiply(scale).add(offset).addBands(ee.Image.constant(0)).rename(['blue', 'green', 'red', 'nir', 'swir1', 'swir2', 'S2'])
   return bands.copyProperties(IMG, ['system:time_start'])
 
 # Function to scale Sentinel-2 images
-def scaleS2 = function(IMG) {
-  bands = IMG.select(['B2', 'B3', 'B4', 'B8', 'B11', 'B12'])
-             .divide(10000).addBands(ee.Image.constant(1))
-             .rename(['blue', 'green', 'red', 'nir', 'swir1', 'swir2', 'S2']);
+def scaleS2(IMG):
+  bands = IMG.select(['B2', 'B3', 'B4', 'B8', 'B11', 'B12']).divide(10000).addBands(ee.Image.constant(1)).rename(['blue', 'green', 'red', 'nir', 'swir1', 'swir2', 'S2'])
   return bands.copyProperties(IMG, ['system:time_start'])
-}
 
 Viz = {'bands': ['swir1', 'nir', 'red'] }
 
@@ -53,16 +46,16 @@ Viz = {'bands': ['swir1', 'nir', 'red'] }
 subCol1 = L89.filterBounds(ROI).filterDate(timeStart.advance(-1,'years'), timeStop.advance(-1,'years')).sort('system:time_start', False)
 print(subCol1.size().subtract(1).getInfo())
 IMG1 = ee.Image(subCol1.map(scaleL89).toList(100).get(0))
-Map.addLayer(IMG1, L89Viz, "T1", False)
+Map.addLayer(IMG1, Viz, "T1", False)
 
 # T2
 subCol2 = L89.filterBounds(ROI).filterDate(timeStart, timeStop).sort('system:time_start', False)
 print(subCol2.size().subtract(1).getInfo())
 IMG2 = ee.Image(subCol2.map(scaleL89).toList(100).get(0))
-Map.addLayer(IMG2, L89Viz, "T2")
+Map.addLayer(IMG2, Viz, "T2")
 
 # T3
 subCol3 = L89.filterBounds(ROI).filterDate(timeStart.advance(1,'years'), timeStop.advance(1,'years')).sort('system:time_start', False)
 print(subCol3.size().subtract(1).getInfo())
 IMG3 = ee.Image(subCol3.map(scaleL89).toList(100).get(0))
-Map.addLayer(IMG3, L89Viz, "T3", False)
+Map.addLayer(IMG3, Viz, "T3", False)
