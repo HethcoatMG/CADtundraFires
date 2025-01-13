@@ -44,18 +44,18 @@ Viz = {'bands': ['swir1', 'nir', 'red'] }
 
 # T1
 subCol1 = L89.filterBounds(ROI).filterDate(timeStart.advance(-1,'years'), timeStop.advance(-1,'years')).sort('system:time_start', False)
-print(subCol1.size().subtract(1).getInfo())
+print('T-1: ',subCol1.size().subtract(1).getInfo())
 IMG1 = ee.Image(subCol1.map(scaleL89).toList(100).get(0))
-Map.addLayer(IMG1, Viz, "T1", False)
+Map.addLayer(IMG1, Viz, "T-1", False)
 
 # T2
 subCol2 = L89.filterBounds(ROI).filterDate(timeStart, timeStop).sort('system:time_start', False)
-print(subCol2.size().subtract(1).getInfo())
+print('T0: ',subCol2.size().subtract(1).getInfo())
 IMG2 = ee.Image(subCol2.map(scaleL89).toList(100).get(0))
-Map.addLayer(IMG2, Viz, "T2")
+Map.addLayer(IMG2, Viz, "T0")
 
 # T3
 subCol3 = L89.filterBounds(ROI).filterDate(timeStart.advance(1,'years'), timeStop.advance(1,'years')).sort('system:time_start', False)
-print(subCol3.size().subtract(1).getInfo())
+print('T+1: ',subCol3.size().subtract(1).getInfo())
 IMG3 = ee.Image(subCol3.map(scaleL89).toList(100).get(0))
-Map.addLayer(IMG3, Viz, "T3", False)
+Map.addLayer(IMG3, Viz, "T+1", False)
