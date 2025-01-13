@@ -42,19 +42,19 @@ def scaleS2(IMG):
 
 Viz = {'bands': ['swir1', 'nir', 'red'] }
 
-# T1
+# T-1
 subCol1 = L89.filterBounds(ROI).filterDate(timeStart.advance(-1,'years'), timeStop.advance(-1,'years')).sort('system:time_start', False)
 print('T-1: ',subCol1.size().subtract(1).getInfo())
 IMG1 = ee.Image(subCol1.map(scaleL89).toList(100).get(0))
 Map.addLayer(IMG1, Viz, "T-1", False)
 
-# T2
+# T0
 subCol2 = L89.filterBounds(ROI).filterDate(timeStart, timeStop).sort('system:time_start', False)
 print('T0: ',subCol2.size().subtract(1).getInfo())
 IMG2 = ee.Image(subCol2.map(scaleL89).toList(100).get(0))
 Map.addLayer(IMG2, Viz, "T0")
 
-# T3
+# T+1
 subCol3 = L89.filterBounds(ROI).filterDate(timeStart.advance(1,'years'), timeStop.advance(1,'years')).sort('system:time_start', False)
 print('T+1: ',subCol3.size().subtract(1).getInfo())
 IMG3 = ee.Image(subCol3.map(scaleL89).toList(100).get(0))
