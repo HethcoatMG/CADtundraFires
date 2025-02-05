@@ -54,8 +54,8 @@ var label_year_selection = ui.Label({
 });
 var year_selection = ui.Slider({
   min: 1985,
-  max: 2022, 
-  value: 2021, 
+  max: 2023, 
+  value: 2023, 
   step: 1,
   onChange: function(value) {
     var year_selection = value;
@@ -661,7 +661,17 @@ var convertBandsls457 = function(lsImage) {
 
   // create water mask
   var dryLand = ee.Image("JRC/GSW1_4/GlobalSurfaceWater").select(['max_extent']).eq(0).selfMask().clip(ROI);
-
+  
+  // create ocean mask
+  var mainlands = ee.FeatureCollection('projects/sat-io/open-datasets/shoreline/mainlands');
+  var big_islands = ee.FeatureCollection('projects/sat-io/open-datasets/shoreline/big_islands');
+  var merged = mainlands.merge(big_islands);
+  // Rasterize polys and clip to ROI
+  var ocean = merged.reduceToImage({
+    properties: ['OBJECTID'],
+    reducer: ee.Reducer.count()
+  }).clip(ROI);
+  var land = ocean.not();
 
   // pre-fire variable names
   var preVariables = allVariables.map(function(word) {
@@ -854,9 +864,10 @@ var convertBandsls457 = function(lsImage) {
   var meanCol = ee.Image(ee.ImageCollection([meanColA,meanColB]).min());
 
   // mask water
-  var meanIMG = meanCol.updateMask(dryLand);
-  var divIMG = divCol.updateMask(dryLand);
-  var subIMG = subCol.updateMask(dryLand);
+  var meanIMG = meanCol.updateMask(dryLand).updateMask(land);
+  var divIMG = divCol.updateMask(dryLand).updateMask(land);
+  var subIMG = subCol.updateMask(dryLand).updateMask(land);
+
 
   /////////////////////////////////////////////////////////////// 
 
