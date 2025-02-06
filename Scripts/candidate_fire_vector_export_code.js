@@ -662,17 +662,18 @@ var convertBandsls457 = function(lsImage) {
   // create water mask
   var dryLand = ee.Image("JRC/GSW1_4/GlobalSurfaceWater").select(['max_extent']).eq(0).selfMask().clip(ROI);
   
-  // create ocean mask
+  // create land mask
   var mainlands = ee.FeatureCollection('projects/sat-io/open-datasets/shoreline/mainlands');
   var big_islands = ee.FeatureCollection('projects/sat-io/open-datasets/shoreline/big_islands');
   var merged = mainlands.merge(big_islands);
+  
   // Rasterize polys and clip to ROI
-  var ocean = merged.reduceToImage({
+  var land = merged.reduceToImage({
     properties: ['OBJECTID'],
     reducer: ee.Reducer.count()
   }).clip(ROI);
-  var land = ocean.not();
 
+  
   // pre-fire variable names
   var preVariables = allVariables.map(function(word) {
     return ee.String('pre_').cat(word);
