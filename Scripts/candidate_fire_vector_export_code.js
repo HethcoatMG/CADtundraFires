@@ -671,7 +671,7 @@ var convertBandsls457 = function(lsImage) {
   var land = merged.reduceToImage({
     properties: ['OBJECTID'],
     reducer: ee.Reducer.count()
-  }).clip(ROI).selfMask();
+  }).clip(ROI);
 
   
   // pre-fire variable names
@@ -827,7 +827,7 @@ var convertBandsls457 = function(lsImage) {
 
 
 
-  var predictedImage = burnIndices19.classify(THEclassifier).updateMask(dryLand);
+  var predictedImage = burnIndices19.classify(THEclassifier).updateMask(dryLand).updateMask(land);
 
 
   ////////////////////////////////////////////////////////////////////////////////////////
