@@ -671,7 +671,7 @@ var convertBandsls457 = function(lsImage) {
   var land = merged.reduceToImage({
     properties: ['OBJECTID'],
     reducer: ee.Reducer.count()
-  }).clip(ROI);
+  }).clip(ROI).selfMask();
 
   
   // pre-fire variable names
