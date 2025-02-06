@@ -864,7 +864,7 @@ var convertBandsls457 = function(lsImage) {
   // return lowest value across the 2 ImgCols - either [year of fire vs PREfire] OR [postFire vs PREfire]
   var meanCol = ee.Image(ee.ImageCollection([meanColA,meanColB]).min());
 
-  // mask water
+  // mask lakes then ocean
   var meanIMG = meanCol.updateMask(dryLand).updateMask(land);
   var divIMG = divCol.updateMask(dryLand).updateMask(land);
   var subIMG = subCol.updateMask(dryLand).updateMask(land);
