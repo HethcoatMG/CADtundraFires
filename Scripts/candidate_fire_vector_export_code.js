@@ -259,8 +259,7 @@ var getMSAVI = function(img) {
 // 2. https://yceo.yale.edu/tasseled-cap-transform-landsat-8-oli
 // 3. https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0147121#pone.0147121.s001
 
-// From paper 3: "Since data from all sensors were pre-preprocessed to surface reflectance products, 
-// we used the same surface reflectance derived tasseled cap coefficients across all sensors"
+// I'm using all Crist & Cicone '84
 // NOTE ALL SENSORS RECEIVED THE SAME COEFS (I.E. NOT SENSOR SPECIFIC)
 
 /*
@@ -277,7 +276,7 @@ var getMSAVI = function(img) {
 */
 var getTCB = function(img) {
   var result = img.expression(
-    '0.2043 * BLUE + 0.4158 * GREEN + 0.5524 * RED + 0.5741 * NIR + 0.3124 * sSWIR + 0.2303 * lSWIR',
+    '0.3037 * BLUE + 0.2793 * GREEN + 0.4743 * RED + 0.5585 * NIR + 0.5082 * sSWIR + 0.1863 * lSWIR',
     {
       'BLUE': img.select('blue'),
       'GREEN': img.select('green'),
@@ -292,7 +291,7 @@ var getTCB = function(img) {
 
 var getTCG = function(img) {
   var result = img.expression(
-    '-0.1603 * BLUE - 0.2819 * GREEN - 0.4934 * RED + 0.7940 * NIR - 0.0002 * sSWIR - 0.1446 * lSWIR',
+    '-0.2848 * BLUE - 0.2435 * GREEN - 0.5436 * RED + 0.7243 * NIR + 0.0840 * sSWIR - 0.1800 * lSWIR',
     {
       'BLUE': img.select('blue'),
       'GREEN': img.select('green'),
@@ -306,7 +305,7 @@ var getTCG = function(img) {
 
 var getTCW = function(img) {
   var result = img.expression(
-    '0.0315 * BLUE + 0.2021 * GREEN + 0.3102 * RED + 0.1594 * NIR - 0.6806 * sSWIR - 0.6109 * lSWIR',
+    '0.1509 * BLUE + 0.1973 * GREEN + 0.3279 * RED + 0.3406 * NIR - 0.7112 * sSWIR - 0.4572 * lSWIR',
     {
       'BLUE': img.select('blue'),
       'GREEN': img.select('green'),
